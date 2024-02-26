@@ -1,4 +1,4 @@
-use midifuc::parser::parse;
+use midifuc::parser::{parse, Operation};
 use midly::Smf;
 use std::{env, fs};
 
@@ -13,4 +13,7 @@ fn main() {
     let smf = Smf::parse(&midi_bytes).unwrap();
 
     let program = parse(&smf.tracks[1]);
+    for instruction in program {
+        dbg!(&instruction);
+    }
 }
