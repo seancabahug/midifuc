@@ -54,3 +54,9 @@ cargo run -- ./tests/readwrite.mid 0
 ```bash
 cargo run -- ./tests/cat.mid 0
 ```
+
+These test MIDI files can also be listened to with any MIDI player, such as:
+- http://app.midiano.com
+- Windows Media Player
+- VLC Media Player
+- All digital audio workstation software (FL Studio, Ableton, etc.)
