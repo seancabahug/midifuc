@@ -1,5 +1,5 @@
 use crate::parser::{Instruction, Operation};
-use std::io;
+use std::{io, io::Read};
 
 pub fn interpret(program: Vec<Instruction>) {
     let mut memory_cells = [0; u16::MAX as usize];
@@ -9,11 +9,8 @@ pub fn interpret(program: Vec<Instruction>) {
     let mut return_address_stack: Vec<usize> = vec![];
     let mut increment_state_stack: Vec<bool> = vec![];
 
-    println!("INTERPRETING");
-
     while instruction_pointer < program.len() {
         let instruction = &program[instruction_pointer];
-        dbg!(instruction);
 
         for _ in 0..(instruction.repetitions + 1) {
             match instruction.operation {
@@ -42,7 +39,10 @@ pub fn interpret(program: Vec<Instruction>) {
                 Operation::Output => {
                     print!("{}", char::from_u32(memory_cells[memory_pointer]).unwrap());
                 }
-                Operation::Input => {}
+                Operation::Input => {
+                    let value: u32 = io::stdin().bytes().next().unwrap().unwrap().into();
+                    memory_cells[memory_pointer] = value;
+                }
                 Operation::SpecialInstruction => {}
             }
         }
